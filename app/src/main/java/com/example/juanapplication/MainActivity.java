@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
     CheckBox jcbguia,jcbtransporte;
     TextView jtvciudad,jtvguia,jtvtransporte,jtvtotal,jtvmensaje1,jtvmensaje2;
     EditText jetcantidad;
-    Button jbtncalcular;
+    Button jbtncalcular,jbtnlimpiar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,12 +41,10 @@ public class MainActivity extends AppCompatActivity {
         jetcantidad=findViewById(R.id.etcantidad);
 
         jbtncalcular=findViewById(R.id.btncalcular);
-    }
+        jbtnlimpiar=findViewById(R.id.btnlimpiar);
 
-    private void calcularDestino(){
-        if (jrbcartagena.isChecked()){
 
-        }
+
     }
     public void calcularTotal (View view) {
         String cantidad;
@@ -89,7 +87,22 @@ public class MainActivity extends AppCompatActivity {
                     jtvtransporte.setText("0");
                     transporte=0;
                 }
+                subtotal=(ciudad*cant)+(cant*transporte)+guia;
+                iva=((float)(subtotal*19)/100);
+                total_viaje=subtotal+iva+guia+(cant*transporte);
+                jtvtotal.setText(String.valueOf(total_viaje));
             }
         }
+    }
+    public void Limpiar(View view){
+        jtvtotal.setText("0");
+        jtvguia.setText("0");
+        jtvtransporte.setText("0");
+        jtvciudad.setText("0");
+        jetcantidad.setText("");
+        jetcantidad.requestFocus();
+        jrbcartagena.setChecked(true);
+        jcbtransporte.setChecked(false);
+        jcbguia.setChecked(false);
     }
 }
